@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset = "UTF-8">
+        
+        <link rel="stylesheet" href="./../lib/bootstrap/css/bootstrap.css">
+        <link rel="stylesheet" href="./../common.css"/>
+        <link rel="stylesheet" href="./../custom_bootstrap.css">
+
+        <style>
+            #page {
+                position: absolute;
+                left: 0;
+                right: 0;
+                top: 0;
+                bottom: 0;
+
+                padding: 40px;
+                
+            }
+
+            #control button {
+                
+                height: 30px;
+                width: 90px;
+
+                margin-left: 20px;
+                
+            }
+
+            #control {
+
+                position: absolute;
+                bottom: 0;
+                left: 0;
+
+                height: 80px;
+                width: 100%;
+
+                background-color: var(--color-bg);
+                box-shadow: 0 -1px 2px var(--color-shadow);
+
+                padding-right: 25px;
+
+                display: flex;
+                flex-direction: row;
+
+                justify-content: flex-end;
+                align-items: center;
+            }
+
+            .form-control {
+                color: #000000 !important;
+                height: 100% !important;
+            }
+
+
+            .form-group.row {
+                margin-bottom: 40px;
+            }
+
+            .form-check {
+                margin-right: 20px;
+                margin-bottom: 10px;
+            }
+            
+        </style>
+
+    </head>
+    <body>
+        <div id="page">
+            <div id="content">
+
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label" for="inputEmail4">测试距离</label>
+                    <div class="input-group is-invalid col-sm-8">
+
+                        <div class="input-group-prepend">
+                            <button class="btn btn-outline-secondary active" type="button">60cm</button>
+                            <button class="btn btn-outline-secondary" type="button">6.00m</button>
+                            <button class="btn btn-outline-secondary" type="button">自定义</button>
+                        </div>
+                        <input type="text" class="form-control" id="inputAddress">
+                        <div class="input-group-append">
+                            <span class="input-group-text">m</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label" for="inputPassword4">物体方位角</label>
+                    <div class="input-group is-invalid col-sm-8">
+                        <input type="text" class="form-control" id="inputAddress"> 
+                        <div class="input-group-append">
+                            <span class="input-group-text">°</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label" for="inputPassword4">物体偏斜角</label>
+                    <div class="input-group is-invalid col-sm-8">
+                        <input type="text" class="form-control" id="inputAddress"> 
+                        <div class="input-group-append">
+                            <span class="input-group-text">°</span>
+                        </div>
+                    </div>
+                </div>
+
+                <fieldset class="form-group row">
+                    <legend class="col-form-label col-sm-4 float-sm-left pt-0">基准眼</legend>
+                    <div class="col-sm-8" id="sex">
+                      <div class="form-check">
+                        <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="option1">
+                        <label class="form-check-label" for="gridRadios1">
+                            &nbsp左眼
+                        </label>
+                        
+                       </div>
+                      <div class="form-check">
+                        <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios2" value="option2">
+                        <label class="form-check-label" for="gridRadios2">
+                            &nbsp右眼
+                        </label>
+                      </div>
+                    </div>
+                </fieldset>
+
+            </div>
+
+            <div id="control">
+                <button type="submit" class="btn btn-mine2" id="cancel">取消</button>
+                <button type="submit" class="btn btn-mine" id="confirm">确定</button>
+            </div>
+
+            
+
+        </div>
+    </body>
+
+    <script src="./lib/jquery.slim.min.js"></script>
+    <script src="./lib/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="./lib/bootstrap/js/bootstrap.min.js"></script>
+
+    <script src="common.js"></script>
+</html>

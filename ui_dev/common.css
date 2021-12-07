@@ -1,0 +1,16 @@
+* {
+    --color-panel: #ffffff;
+    --color-bg: #f2f3f4d0;
+    --color-theme: #0F4776;
+
+    --color-sub: #fafafa;
+    --color-font: #444444;
+    --color-shallow:  #767676;
+    --color-shadow: #53535352;
+
+    /* font-family:"Microsoft Yahei"; */
+    font-family: "Microsoft YaHei";
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: .15em;
+}

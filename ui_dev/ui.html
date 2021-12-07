@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>EasyStradiag 1.0</title>
+
+        <link rel="stylesheet" href="./lib/bootstrap/css/bootstrap.css">
+        <link rel="stylesheet" href="./common.css">
+        <link rel="stylesheet" href="./ui.css"/>
+        <link rel="stylesheet" href="./custom_bootstrap.css">
+
+        <!-- <script src="./lib/jquery.slim.min.js"></script> -->
+        
+
+    </head>
+    <body>
+
+        <div id="page">
+            <div id="mask" hidden></div>
+            <div id="menu-bar">
+                <img id="logo" src="../logos/text_logo.png" οndragstart="return false;"></img>
+                <div>
+                <button class="btn btn-mine dropdown-toggle " id="setting" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-gear" viewBox="0 0 16 16">
+                        <path d="M8 4.754a3.246 3.246 0 1 0 0 6.492 3.246 3.246 0 0 0 0-6.492zM5.754 8a2.246 2.246 0 1 1 4.492 0 2.246 2.246 0 0 1-4.492 0z"/>
+                        <path d="M9.796 1.343c-.527-1.79-3.065-1.79-3.592 0l-.094.319a.873.873 0 0 1-1.255.52l-.292-.16c-1.64-.892-3.433.902-2.54 2.541l.159.292a.873.873 0 0 1-.52 1.255l-.319.094c-1.79.527-1.79 3.065 0 3.592l.319.094a.873.873 0 0 1 .52 1.255l-.16.292c-.892 1.64.901 3.434 2.541 2.54l.292-.159a.873.873 0 0 1 1.255.52l.094.319c.527 1.79 3.065 1.79 3.592 0l.094-.319a.873.873 0 0 1 1.255-.52l.292.16c1.64.893 3.434-.902 2.54-2.541l-.159-.292a.873.873 0 0 1 .52-1.255l.319-.094c1.79-.527 1.79-3.065 0-3.592l-.319-.094a.873.873 0 0 1-.52-1.255l.16-.292c.893-1.64-.902-3.433-2.541-2.54l-.292.159a.873.873 0 0 1-1.255-.52l-.094-.319zm-2.633.283c.246-.835 1.428-.835 1.674 0l.094.319a1.873 1.873 0 0 0 2.693 1.115l.291-.16c.764-.415 1.6.42 1.184 1.185l-.159.292a1.873 1.873 0 0 0 1.116 2.692l.318.094c.835.246.835 1.428 0 1.674l-.319.094a1.873 1.873 0 0 0-1.115 2.693l.16.291c.415.764-.42 1.6-1.185 1.184l-.291-.159a1.873 1.873 0 0 0-2.693 1.116l-.094.318c-.246.835-1.428.835-1.674 0l-.094-.319a1.873 1.873 0 0 0-2.692-1.115l-.292.16c-.764.415-1.6-.42-1.184-1.185l.159-.291A1.873 1.873 0 0 0 1.945 8.93l-.319-.094c-.835-.246-.835-1.428 0-1.674l.319-.094A1.873 1.873 0 0 0 3.06 4.377l-.16-.292c-.415-.764.42-1.6 1.185-1.184l.292.159a1.873 1.873 0 0 0 2.692-1.115l.094-.319z"/>
+                      </svg>
+                </button>
+
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="setting">
+                    <a class="dropdown-item" >新建</a>
+                    <a class="dropdown-item" >修改</a>
+                </div>
+            </div>
+            <div>
+                <button class="btn btn-mine dropdown-toggle " id="menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"/>
+                    </svg>
+                </button>
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="menu">
+                    <a class="dropdown-item" >导入测试记录</a>
+                    <a class="dropdown-item" >导出测试记录</a>
+                    <a class="dropdown-item" >测试报告预览</a>
+                </div>
+                </div>
+            </div>
+            <div id="panels">
+                <div>
+                    <div id="info-panel" class="panel">
+                        <div>
+                            <div class="header">
+                                基本信息
+                                <button class="btn btn-mine dropdown-toggle " id="info-panel-menu" data-toggle="dropdown" aria-haspopup="false" aria-expanded="false">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-three-dots" viewBox="0 0 16 16"><path d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z"/></svg>
+                                </button>
+                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="info-panel-menu">
+                                    <a class="dropdown-item" >新建</a>
+                                    <a class="dropdown-item" >修改</a>
+                                </div>
+                            </div>
+                            <div class="body">
+                                
+                                <div class="item">
+                                    <div class="title">姓名</div>
+                                    <div class="content">王帆</div>
+                                </div>
+                                <div class="item">
+                                    <div class="title">性别</div>
+                                    <div class="content">男</div>
+                                </div>
+                                <div class="item">
+                                    <div class="title">年龄</div>
+                                    <div class="content">21</div>
+                                </div>
+                                <div class="item">
+                                    <div class="title">编号</div>
+                                    <div class="content">2021081194356</div>
+                                </div>
+                                <div class="item">
+                                    <div class="title">时间</div>
+                                    <div class="content">2021/08/11 19：01</div>
+                                </div>
+
+                                <!-- <div class="item">
+                                    <div class="title">姓名</div>
+                                    <div class="content">-</div>
+                                </div>
+                                <div class="item">
+                                    <div class="title">性别</div>
+                                    <div class="content">-</div>
+                                </div>
+                                <div class="item">
+                                    <div class="title">年龄</div>
+                                    <div class="content">-</div>
+                                </div>
+                                <div class="item">
+                                    <div class="title">编号</div>
+                                    <div class="content">-</div>
+                                </div>
+                                <div class="item">
+                                    <div class="title">时间</div>
+                                    <div class="content">-</div>
+                                </div> -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="control-panel" class="tab-panel">
+                    <div>
+                        <div class="tabbar">
+                            <div id="firstpos-test-tab" class="tab">主视眼检测</div>
+                            <div id="round-test-tab" class="tab">周向快速检测</div>
+                            <div id="custom-test-tab" class="tab active">自定义点位检测</div>
+                        </div>
+
+                        <div id="firstpos-test-panel" class="panel" hidden>
+                            <div>
+                                <div class="header">
+                                    测试参数
+                                    <button class="btn btn-mine dropdown-toggle " id="firstpos-test-menu" data-toggle="dropdown" aria-haspopup="false" aria-expanded="false">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-three-dots" viewBox="0 0 16 16"><path d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z"/></svg>
+                                    </button>
+                                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="firstpos-test-menu">
+                                        <a class="dropdown-item" >修改</a>
+                                    </div>
+                                </div>
+                                <!-- <div class="body">
+                                    <div class="item">
+                                        <div class="title">测试距离</div>
+                                        <div class="content">未设定</div>
+                                    </div>
+                                    <div class="item">
+                                        <div class="title">物体直径</div>
+                                        <div class="content">未设定</div>
+                                    </div>
+                                    <button class="btn btn-mine2">开始测试</button>
+                                </div> -->
+
+                                <div class="body">
+                                    <div class="item">
+                                        <div class="title">测试距离</div>
+                                        <div class="content">0.60 m</div>
+                                    </div>
+                                    <div class="item">
+                                        <div class="title">物体直径</div>
+                                        <div class="content">10 cm</div>
+                                    </div>
+
+                                    <button class="btn btn-mine">开始测试</button>
+                                </div>
+
+                                <div class="header">检测结果</div>
+                                <div class="body">
+                                    <div class="item">
+                                        <div class="title">主视眼</div>
+                                        <div class="content">左眼</div>
+                                    </div>
+                                    <div class="item">
+                                        <div class="title">非主视眼斜视度数</div>
+                                        <div class="content">5°</div>
+                                    </div>
+                                    <div class="item">
+                                        <div class="title">非主视眼斜视方向</div>
+                                        <div class="content">1°</div>
+                                    </div>
+                                    <div class="item">
+                                        <div class="title">非主视眼垂直斜视度数</div>
+                                        <div class="cotent">0.2°</div>
+                                    </div>
+                                    <div class="item">
+                                        <div class="title">非主视眼水平斜视度数</div>
+                                        <div class="content">4.9°</div>
+                                    </div>
+                                </div>
+
+                                <!-- <div class="body">
+                                    <div class="item">
+                                        <div class="title">主视眼</div>
+                                        <div class="content">-</div>
+                                    </div>
+                                    <div class="item">
+                                        <div class="title">非主视眼斜视度数</div>
+                                        <div class="content">-</div>
+                                    </div>
+                                    <div class="item">
+                                        <div class="title">非主视眼斜视方向</div>
+                                        <div class="content">-</div>
+                                    </div>
+                                    <div class="item">
+                                        <div class="title">非主视眼垂直斜视度数</div>
+                                        <div class="cotent">-</div>
+                                    </div>
+                                    <div class="item">
+                                        <div class="title">非主视眼水平斜视度数</div>
+                                        <div class="content">-</div>
+                                    </div>
+                                </div> -->
+                            </div>
+                        </div>
+
+                        <div id="round-test-panel" class="panel" hidden>
+                            <div>
+                                <div class="header">
+                                    测试参数
+                                    <button class="btn btn-mine dropdown-toggle " id="firstpos-test-menu" data-toggle="dropdown" aria-haspopup="false" aria-expanded="false">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-three-dots" viewBox="0 0 16 16"><path d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z"/></svg>
+                                    </button>
+                                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="firstpos-test-menu">
+                                        <a class="dropdown-item" >修改</a>
+                                    </div>
+                                </div>
+                                <div class="body">
+                                    <div class="item">
+                                        <div class="title">测试距离</div>
+                                        <div class="content">0.60 m</div>
+                                    </div>
+                                    <div class="item">
+                                        <div class="title">物体直径</div>
+                                        <div class="content">20 cm</div>
+                                    </div>
+                                    <div class="item">
+                                        <div class="title">移动速度</div>
+                                        <div class="content">20.0 °/s</div>
+                                    </div>
+                                    <div class="item">
+                                        <div class="title">基准眼</div>
+                                        <div class="content">左眼</div>
+                                    </div>
+                                    <button class="btn btn-mine">开始测试</button>
+                                </div>
+
+                                <!-- <div class="body">
+                                    <div class="item">
+                                        <div class="title">测试距离</div>
+                                        <div class="content">未设置</div>
+                                    </div>
+                                    <div class="item">
+                                        <div class="title">物体直径</div>
+                                        <div class="content">未设置</div>
+                                    </div>
+                                    <div class="item">
+                                        <div class="title">移动速度</div>
+                                        <div class="content">未设置</div>
+                                    </div>
+                                    <div class="item">
+                                        <div class="title">基准眼</div>
+                                        <div class="content">未设置</div>
+                                    </div>
+                                    <button class="btn btn-mine">开始测试</button>
+                                </div> -->
+                                <div class="header">检测结果</div>
+                                <div class="body">
+                                    <div id="chart"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="custom-test-panel" class="panel">
+                            <div>
+                                <div class="header">
+                                    测试参数
+                                    <img src="../icons/dash.svg">
+                                    <img src="../icons/plus.svg">
+                                </div>
+                                <div class="body">
+                                    <table id="custom-test-set-table">
+                                        <tr>
+                                            <th>序号</th>
+                                            <th>距离</th>
+                                            <th>方位角</th>
+                                            <th>偏斜角</th>
+                                            <th>基准眼</th>
+                                        </tr>
+                                        <tr>
+                                            <td>1</td>
+                                            <td>6.00m</td>
+                                            <td>0.0°</td>
+                                            <td>10.0°</td>
+                                            <td>左</td>
+                                        </tr>
+                                        <tr>
+                                            <td>2</td>
+                                            <td>6.00m</td>
+                                            <td>45.0°</td>
+                                            <td>10.0°</td>
+                                            <td>左</td>
+                                        </tr>
+                                        <tr>
+                                            <td>3</td>
+                                            <td>6.00m</td>
+                                            <td>135.0°</td>
+                                            <td>10.0°</td>
+                                            <td>左</td>
+                                        </tr>
+                                        <tr>
+                                            <td>4</td>
+                                            <td>6.00m</td>
+                                            <td>275.0°</td>
+                                            <td>10.0°</td>
+                                            <td>左</td>
+                                        </tr>
+
+                                        <!-- <tr>
+                                            <td>1</td>
+                                            <td>未设置</td>
+                                            <td>未设置</td>
+                                            <td>未设置</td> 
+                                            <td>未设置</td> 
+                                        </tr> -->
+                                       
+                                    </table>
+                                    <button class="btn btn-mine2">开始测试</button>
+                                </div>
+                                <div class="header">检测结果</div>
+                                <div class="body">
+                                    <table id="custom-test-res-table">
+                                        <tr>
+                                            <th>序号</th>
+                                            <th>综合度数</th>
+                                            <th>水平度数</th>
+                                            <th>垂直度数</th>
+                                            <th>斜视方向</th>
+                                        </tr>
+                                        <tr>
+                                            <td>1</td>
+                                            <td>5.0°</td>
+                                            <td>5.0°</td>
+                                            <td>0.0°</td>
+                                            <td>0.0°</td>
+                                        </tr>
+                                        <tr>
+                                            <td>2</td>
+                                            <td>4.0°</td>
+                                            <td>3.0°</td>
+                                            <td>1.3°</td>
+                                            <td>33.1°</td>
+                                        </tr>
+                                        <tr>
+                                            <td>3</td>
+                                            <td>3.8°</td>
+                                            <td>2.9°</td>
+                                            <td>1.1°</td>
+                                            <td>23.1°</td>
+                                        </tr>
+                                        <tr>
+                                            <td>4</td>
+                                            <td>4.8°</td>
+                                            <td>3.9°</td>
+                                            <td>1.1°</td>
+                                            <td>15.3°</td>
+                                        </tr>
+
+                                        <!-- <tr>
+                                            <td>1</td>
+                                            <td>-</td>
+                                            <td>-</td>
+                                            <td>-</td> 
+                                            <td>-</td> 
+                                        </tr> -->
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>  
+                    </div>
+                    
+                    <div id="video-panel" class="panel">
+                        <div>
+                            <div class="header">
+                                实时图像
+                                <button id="vr-control-bnt" class="btn btn-outline-mine">关闭VR</button>
+                            </div>
+                            <div class="body">
+                                <div class="video">
+                                    <view class="title">VR左屏幕图像</view>
+                                    <img src="./image/ball_center.jpg">
+                                </div>
+                                <div class="video">VR右屏幕图像
+                                    <img src="./image/ball_center.jpg">
+                                </div>
+                                <div class="video">右眼红外图像</div>
+                                <div class="video">左眼红外图像</div>
+                            </div>
+                        </div>
+                        
+                    </div>
+
+                    <div id="data-panel" class="panel">
+                        <div>
+                            <div class="header">实时数据</div>
+                            <div class="body">
+                                <!-- <div class="item">
+                                    <div class="title">左眼视线方向向量</div>
+                                    <div class="content" id="leftgaze-vec">(0.32, 0.33, 0.45)</div>
+                                </div>
+                                <div class="item">
+                                    <div class="title">右眼视线方向向量</div>
+                                    <div class="content" id="rightgaze-vec">(0.32, 0.33, 0.45)</div>
+                                </div>
+                                <div class="item">
+                                    <div class="title">目标物体方位角</div>
+                                    <div class="content" id="target-pos-ang">45.2°</div>
+                                </div>
+                                <div class="item">
+                                    <div class="title">目标物体偏斜角</div>
+                                    <div class="content" id="target-devia-ang">10.0°</div>
+                                </div>
+                                <div class="item">
+                                    <div class="title">目标物体距离</div>
+                                    <div class="content" id="target-distance">6.00m</div>
+                                </div>
+                                <div id="focus-status">
+                                    <div class="title">左眼注视状态</div><div id="left-focus-status" class="active"></div>
+                                    <div class="title">右眼注视状态</div><div id="right-focus-status"></div>
+                                </div> -->
+
+                                <div class="item">
+                                    <div class="title">左眼视线方向向量</div>
+                                    <div class="content" id="leftgaze-vec">-</div>
+                                </div>
+                                <div class="item">
+                                    <div class="title">右眼视线方向向量</div>
+                                    <div class="content" id="rightgaze-vec">-</div>
+                                </div>
+                                <div class="item">
+                                    <div class="title">目标物体方位角</div>
+                                    <div class="content" id="target-pos-ang">-</div>
+                                </div>
+                                <div class="item">
+                                    <div class="title">目标物体偏斜角</div>
+                                    <div class="content" id="target-devia-ang">-</div>
+                                </div>
+                                <div class="item">
+                                    <div class="title">目标物体距离</div>
+                                    <div class="content" id="target-distance">-</div>
+                                </div>
+                                <div id="focus-status">
+                                    <div class="title">左眼注视状态</div><div id="left-focus-status"></div>
+                                    <div class="title">右眼注视状态</div><div id="right-focus-status"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="console-panel" class="panel">
+                        <div>
+                            <div class="header">系统信息</div>
+                            <div class="body" id="console">
+                                <div>
+                                    <div class="console-message">[19:01:03] 正在初始化...</div>
+                                    <div class="console-message">[19:01:10] 工作目录:C:\Users\eleonw\Documents\EasyStradiag working directory</div>
+                                    <div class="console-message">[19:01:10] 初始化完成</div>
+                                    <div class="console-message">[19:02:20] 主视眼测试...</div>
+                                    <div class="console-message">[19:02:30] 主视眼测试完成</div>
+                                    <div class="console-message">[19:02:50] 周向快速测试...</div>
+                                    <div class="console-message">[19:03:10] 周向快速测试完成</div>
+                                    <!-- <div class="console-message">[19:01:05] 初始化完成</div>
+                                    <div class="console-message">[19:02:21] 开始主视眼检测</div>
+                                    <div class="console-message">[19:02:22] 主视眼检测...</div>
+                                    <div class="console-message">[19:02:29] 主视眼检测完成</div> -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="status-bar">
+                <div id="status">Done</div>
+                <img src="../icons/bell-fill.svg"/>
+            </div>
+            
+        </div>
+        
+    </body>
+
+    <!-- Insert this line above script imports  -->
+    <script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
+
+  
+    <!-- normal script imports etc  -->
+    <script src="lib/jquery.min.js"></script>
+    <script src="./lib/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="./lib/bootstrap/js/bootstrap.min.js"></script>
+    <script src="./lib/plotly.min.js"></script>
+
+    <!-- Insert this line after script imports -->
+    <script>if (window.module) module = window.module;</script>
+
+    <script src="./ui.js"></script>  
+    <script src="./electron.js"></script>
+    
+</html>

@@ -6,15 +6,18 @@ function createWindow () {
   let size = screen.getPrimaryDisplay().workAreaSize;
   const win = new BrowserWindow({
       show: false,
+      // fullscreen: true,
       webPreferences: {
-        nodeIntegration: true
+        nodeIntegration: true,
+        enableRemoteModule: true
       },
-      icon: 'logo.ico'
+      icon: 'logos/logo.ico'
   })
   win.maximize();
+  win.loadFile('./ui_dev/ui.html');
   win.show();
 
-  win.loadFile('pages/basic_info.html')
+  // win.webContents.openDevTools();
 }
 
 app.whenReady().then(createWindow)

@@ -1,80 +1,151 @@
 `use strict`;
 
+require('webrtc-adapter');
+var $ = require('jquery');
+
 const PORT_NO = 8081;
 
-var video = document.querySelector('#remote-video');
-var ws = require('ws');
-var server = new ws.Server({port: PORT_NO});
-console.log(`WebSocket listening on port ${PORT_NO}`);
 
+var video = document.querySelector('#unity-video');
 var remoteStream = new MediaStream();
 video.srcObject = remoteStream;
+var dataChannel;
+var pc;
 
-const pc = new RTCPeerConnection();
-
+pc = new RTCPeerConnection();
 pc.ontrack = e => {
     console.log('OnTrack event: ', e)
     remoteStream.addTrack(e.track);
 }
-
+pc.ondatachannel = e => {
+    console.log("Ondatachannel event: ", e);
+    console.log(dataChannel);
+    // dataChannel = e.channel;
+    dataChannel.onmessage = onMessage;
+    dataChannel.send("Data channel established.");
+    console.log(dataChannel);
+}
 pc.oniceconnectionstatechange = e => {
-    console.log("IceConnection state changed: ", e);
+    let state = e.target.connectionState;
+    console.log("IceConnection state changed: ", state);
+    if (state === 'connected') {
+        ws.close();
+        console.log('-'*30);
+        console.log("Signaling complete, close webSocket");
+        console.log('-'*30);
+    }
 }
 
-server.on('connection', ws => {
+var dataElements = {
+    left: {
+        origin: $("#left-origin"),
+        direction: $('#left-direction')
+    },
+    right: {
+        origin: $('#right-origin'),
+        direction: $('#right-direction')
+    },
+    focusPoint: $('#focus-point'),
+    targetAngularPosition: $('#target-angular-position'),
+    expectedDirection: $('#expected-direction'),
+    strabismusDegree: $('#strabismus-degree'),
+    hit: $('hit')
+}
 
-    function sendMessage(type, data) {
-        signalingMessage = {type, data};
-        ws.send(JSON.stringify(signalingMessage));
-        console.log(`Send a(an) ${type} to Unity: `, data);
+function changeText(element, text) {
+    element.text(text);
+}
+
+let figureData = {degree: [], theta: []};
+
+function clearFigureData() {
+    figureData = {degree: [], theta: []};
+}
+
+function onMessage(msg) {
+
+    console.log("receive message through WebRTC from Unity: ", msg);
+    let data = JSON.parse(msg.data);
+    console.log(data)
+
+    let eles = dataElements;
+    changeText(eles.targetAngularPosition, data.targetAngularPosition + '°');
+    if (data.hit) {
+        eles.hit.css('background-color', '#00ff00');
+        changeText(eles.left.origin, data.leftOrigin);
+        changeText(eles.left.direction, data.leftDirection);
+        changeText(eles.right.origin, data.rightOrigin);
+        changeText(eles.right.direction, data.rightDirection);
+        changeText(eles.focusPoint, data.focusPoint);
+        changeText(eles.expectedDirection, data.expectedDirection);
+        changeText(eles.strabismusDegree, data.strabismusDegree + '°');
+
+        let angularPos = Number(data.targetAngularPosition);
+        let degree = Number(data.strabismusDegree);
+
+        figureData.degree.push(degree);
+        figureData.theta.push(angularPos);
+
+    } else {
+        eles.hit.css('background-color', '#ff0000');
     }
+}
 
-    pc.onnegotiationneeded = async evt => {
-        console.log("On negotiation needed.");
-        let opt = {iceRestart: false, offerToReceiveVideo: true, offerToReceiveAudio: false};
-        let offer;
-        try {
-            offer = await pc.createOffer(opt);
-            await pc.setLocalDescription(offer);
-            sendMessage('offer', offer);
-        } catch(e) {
-            console.log("Failed to create offer: ", e);
-        }
-    }
+function enableInput() {
+    $('#angle').removeAttr('readonly');
+    $('#distance').removeAttr('readonly');
+    $('#speed').removeAttr('readonly');
+    $("#input[name='eye']").removeAttr('readonly');
+}
 
-    pc.onicecandidate = evt => {
-        if (evt.candidate) {
-            console.log('Sending a candidate: ', evt.candidate);
-            sendMessage('candidate', evt.candidate);
-        }
-    }
+function disableInput() {
+    $('#angle').attr('readonly', 'readonly');
+    $('#distance').attr('readonly', 'readonly');
+    $('#speed').attr('readonly', 'readonly');
+    $("input[name='eye']").attr('readonly', 'readonly');
+};
 
-    console.log('Websocket connected:', ws);
-    sendMessage("message", {message: "Hello Unity!"});
+$('#start').on('click', () => {
 
-    ws.on('message', async message => {
-        message = JSON.parse(message);
-        switch(message.type) {
-            case 'message':
-                console.log('Receive a message from Unity: ', message.data.message);
-                break;
-            case 'answer':
-                console.log('Receive an answer from Unity: ', message.data)
-                let desc = new RTCSessionDescription(message.data);
-                await pc.setRemoteDescription(desc);
-                break;
-            case 'candidate':
-                console.log('Get an ICE candidate from Unity: ', message.data);
-                pc.addIceCandidate(new RTCIceCandidate(message.data));
-                break;
-            case 'start':
-                console.log('Start shaking hand.');
-                pc.addTransceiver('video');
-                break;
-            default:
-                console.log('Unknown message type: ', message.type);
-        }
+    clearFigureData();
+    plotFigure(figureData);
+    let controlData = {
+        controlNo: 0,
+        angle: Number($('#angle').val()),
+        distance: Number($('#distance').val()),
+        speed: Number($('#speed').val()),
+        eye: Number($("input[name='eye']:checked").val())
+    };
 
-    })
+    console.log(controlData);
+    dataChannel.send(JSON.stringify(controlData));
+    disableInput();
 })
+
+$('#pause').on('click', () => {
+    let controlData = {
+        controlNo: 1,
+    };
+    dataChannel.send(JSON.stringify(controlData));
+
+    plotFigure(figureData);
+})
+
+$('#stop').on('click', () => {
+    let controlData = {
+        controlNo: 2,
+    };
+    dataChannel.send(JSON.stringify(controlData));
+    $('#angle').val('');
+    $('#distance').val('');
+    $('#speed').val('');
+    $("input[name='eye']").removeAttr('checked');
+    enableInput();
+    clearFigureData();
+})
+
+clearFigureData();
+
+
+
 

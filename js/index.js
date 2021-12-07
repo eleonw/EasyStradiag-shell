@@ -5,7 +5,6 @@ var $ = require('jquery');
 
 const PORT_NO = 8081;
 
-
 var video = document.querySelector('#unity-video');
 var remoteStream = new MediaStream();
 video.srcObject = remoteStream;

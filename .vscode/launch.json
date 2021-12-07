@@ -9,7 +9,7 @@
       "runtimeArgs": ["--remote-debugging-port=9222", "."],
       "windows": {
         "runtimeExecutable": "${workspaceFolder}/node_modules/.bin/electron.cmd"
-      }
+      },
     },
     {
       "name": "Renderer",

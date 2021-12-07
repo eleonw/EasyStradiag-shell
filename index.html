@@ -1,18 +1,95 @@
 <!DOCTYPE html>
 <html>
-   <head>
-      <meta charset = "UTF-8">
-      <title>Strabismus Diagnosis from BUAA</title>
-      <style src="./css/index.css"></style>
-   </head>
-   
-   <body>
-      <h1>Hello World!</h1>
-      We are using node, Chrome,and Electron.
-      <video id="remote-video" autoplay muted></video>
-   </body>
+  <head>
+    <meta charset = "UTF-8">
+    <title>Strabismus Diagnosis from BUAA</title>
+    <link rel="stylesheet" href="./css/index.css"/>
+  </head>
+  
+  <body>
+    <div class="main">
+      <div id="video-panel" class="panel-container">
+        <div class="header">VR实时场景</div>
+        <div class="panel">
+          <video id="unity-video" autoplay muted></video>
+        </div>
+      </div>
+      <div id="data-panel" class="panel-container">
+        <div class="header">数据面板</div>
+        <div class="panel">
+          <div class="data">
+            <div class="data-header">注视状态:</div>
+            <div id="hit"></div>
+          </div>
+          <div class="data">
+            <div class="data-header">左眼位置坐标:</div>
+            <div id="left-origin">(0,0,0)</div>
+          </div>
+          <div class="data">
+            <div class="data-header">左眼注视方向:</div>
+            <div id="left-direction">(0,0,0)</div>
+          </div>
+          <div class="data">
+            <div class="data-header">右眼位置坐标:</div>
+            <div id="right-origin">(0,0,0)</div>
+          </div>
+          <div class="data">
+            <div class="data-header">右眼注视方向:</div>
+            <div id="right-direction">(0,0,0)</div>
+          </div>
+          <div class="data">
+            <div class="data-header">目标物体角度位置:</div>
+            <div id="target-angular-position">0°</div>
+          </div>
+          <div class="data">
+            <div class="data-header">主视眼注视点坐标:</div>
+            <div id="focus-point">(0,0,0)</div>
+          </div>
+          <div class="data">
+            <div class="data-header">测试眼期望注视方向:</div>
+            <div id="expected-direction">(0,0,0)</div>
+          </div>
+          <div class="data">
+            <div class="data-header">测试眼实时斜视度数:</div>
+            <div id="strabismus-degree">0°</div>
+          </div>
+        </div>
+      </div>
+      <div id="control-panel" class="panel-container">
+        <div class="header">控制面板</div>
+        <div class="panel">
+          <button class="control" id="start">开始</button>
+          <button class="control" id="pause">暂停</button>
+          <button class="control" id="stop">停止</button>
+          <div class="control">
+            <div class="control-header">角度</div>
+            <input id="angle" type="text"/>
+          </div>
+          <div class="control">
+            <div class="control-header">距离</div>
+            <input id="distance" type="text"/>
+          </div>
+          <div class="control">
+            <div class="control-header">速度</div>
+            <input id="speed" type="text"/>
+          </div>
+          <div class="control">
+            <div class="control-header">主视眼</div>
+            <input id="select-left" type="radio" name="eye" value="0">左眼
+            <input id="select-right" type="radio" name="eye" value="1">右眼
+          </div>
+        </div>
+      </div>
+    </div>
+    
 
-   <script src="./lib/adapter.js"></script>
-   <script src="./js/index.js"></script>
-   
+    <div id="chart"></div>
+    
+  </body>
+
+  <script src="./lib/plotly.min.js"></script>
+  <script src="./js/plot.js"></script>
+  <script src="./js/index.js"></script>
+  <script src="./js/signaling.js"></script>
+  
 </html>

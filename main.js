@@ -1,13 +1,15 @@
-const { app, BrowserWindow } = require('electron');
+const { app, screen, BrowserWindow } = require('electron');
 
 function createWindow () {
+  let size = screen.getPrimaryDisplay().workAreaSize;
   const win = new BrowserWindow({
-    width: 1920,
-    height: 1200,
-    webPreferences: {
-      nodeIntegration: true
-    }
+      show: false,
+      webPreferences: {
+        nodeIntegration: true
+      }
   })
+  win.maximize();
+  win.show();
 
   win.loadFile('index.html')
 }
